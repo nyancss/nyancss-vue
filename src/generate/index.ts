@@ -1,11 +1,11 @@
-import { NyanCSSComponent, NyanCSSMap, NyanCSSProp } from '@nyancss/types'
+import { NyanCSSComponent, NyanCSSMap } from '@nyancss/types'
+import { getClassName } from '@nyancss/utils/stringify'
 import {
   NyanCSSVueAttrs,
   NyanCSSVueComponent,
   NyanCSSVueContext,
   NyanCSSVueCreateElement,
-  NyanCSSVueExports,
-  NyanCSSVueProps
+  NyanCSSVueExports
 } from '../types'
 
 export default function generate(map: NyanCSSMap) {
@@ -27,7 +27,11 @@ function createComponent(component: NyanCSSComponent): NyanCSSVueComponent {
       context: NyanCSSVueContext
     ): Element {
       const tag = context.props.tag || 'div'
-      const className = getClassName(component, context.props)
+      const className = getClassName(
+        component,
+        context.props,
+        context.props.class
+      )
       const attrs: NyanCSSVueAttrs = Object.assign(
         { class: className },
         context.props.attrs || {}
@@ -35,37 +39,4 @@ function createComponent(component: NyanCSSComponent): NyanCSSVueComponent {
       return createElement(tag, { attrs }, context.children)
     }
   }
-}
-
-function getClassName(component: NyanCSSComponent, props: NyanCSSVueProps) {
-  const componentPropsClassNames =
-    props &&
-    Object.keys(component.props).reduce(
-      (acc, componentPropName) => {
-        const componentProp = component.props[componentPropName]
-        const propValue = props[componentPropName]
-        return acc.concat(findModifierClassName(componentProp, propValue) || [])
-      },
-      [] as string[]
-    )
-  return classesToString(
-    [props.class, component.className].concat(componentPropsClassNames)
-  )
-}
-
-function findModifierClassName(componentProp: NyanCSSProp, propValue: any) {
-  switch (componentProp.type) {
-    case 'boolean':
-      if (propValue) return componentProp.className
-      break
-    case 'enum':
-      return componentProp.classNames[propValue]
-  }
-}
-
-function classesToString(classes: Array<string | undefined>) {
-  return classes
-    .filter(c => !!c)
-    .sort()
-    .join(' ')
 }
