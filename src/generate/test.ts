@@ -1,11 +1,11 @@
 import generate from '.'
 import { NyanCSSVueElementProps } from '../types'
 
-const h = (
-  tag: string,
-  props: NyanCSSVueElementProps,
-  children: any
-): [string, NyanCSSVueElementProps, any] => [tag, props, children]
+const h = (tag: string, props: NyanCSSVueElementProps, children: any) => [
+  tag,
+  props,
+  children
+]
 
 describe('generate', () => {
   it('generates simple components', () => {
