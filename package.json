@@ -1,0 +1,23 @@
+{
+  "name": "@nyancss/vue",
+  "version": "1.0.0",
+  "description": "Nyan CSS Vue.js components generator",
+  "main": "index.js",
+  "repository": "https://github.com/nyancss/nyancss-vue",
+  "author": "Sasha Koss <koss@nocorp.me>",
+  "license": "MIT",
+  "dependencies": {
+    "@nyancss/types": "^1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.4",
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1",
+    "typescript": "^3.5.1",
+    "vue": "^2.6.10"
+  }
+}
